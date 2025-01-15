@@ -20,8 +20,8 @@ const Page = () => {
             <CardHeader>
               <CardTitle>Energy consumption overview</CardTitle>
             </CardHeader>
-            <CardContent>
-                <div className="grid grid-cols-3 gap-2 pb-8 pt-8">
+            <CardContent className="flex-1 h-auto">
+                <div className="grid grid-cols-3 gap-2">
                   <Card>
                     <CardHeader>
                       <div className="flex justify-center items-center">

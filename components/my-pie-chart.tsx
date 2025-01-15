@@ -54,10 +54,10 @@ export function MyPieChart() {
       <CardHeader className="pb-0">
         <CardTitle>Today energy consumption proportion</CardTitle>  
       </CardHeader>
-      <CardContent className="flex-1 pb-8 pt-8">
+      <CardContent className="flex-1">
         <ChartContainer
           config={chartConfig}
-          className="mx-auto aspect-square max-h-[300px]"
+          className="mx-auto aspect-square max-h-[270px]"
         >
           <PieChart>
             <Pie data={chartData} dataKey="visitors" />
