@@ -10,6 +10,7 @@ body {
 @layer base {
   :root {
     --background: 0 0% 100%;
+    --background-secondary: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
@@ -38,6 +39,7 @@ body {
 
   .dark {
     --background: 222.2 84% 4.9%;
+    --background-secondary: 240 10% 3.9%;
     --foreground: 210 40% 98%;
     --card: 222.2 84% 4.9%;
     --card-foreground: 210 40% 98%;
@@ -63,13 +65,16 @@ body {
     --chart-5: 340 75% 55%;
   }
 }
-
-
+ 
 @layer base {
   * {
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    /* @apply bg-background text-foreground; */
+  }
+
+  .bg-content {
+    background-color: hsl(var(--background-secondary));
   }
 }
