@@ -2,7 +2,7 @@ import Layout from "./components/layout";
 import { ChartDemo } from "@/components/chart"; 
 import { EnergyBadge } from "@/components/custom/energy-badge"; 
 import { MyPieChart } from "@/components/my-pie-chart"; 
-import { MyTable } from "@/components/my-table"; 
+import { MyTable } from "@/components/my-table";
 
 const Page = () => {
   return (

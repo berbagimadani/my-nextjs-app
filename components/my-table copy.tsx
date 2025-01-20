@@ -18,7 +18,7 @@ interface Product {
     image: string;
 }
 
-export async function MyTable() { 
+export async function MyTable2() { 
 
     try {
         // const data = await fetch('https://dummyjson.com/products');
