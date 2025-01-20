@@ -71,10 +71,10 @@ body {
     @apply border-border;
   }
   body {
-    /* @apply bg-background text-foreground; */
+    @apply bg-background text-foreground;
   }
 
   .bg-content {
-    background-color: hsl(var(--background-secondary));
+    /* background-color: hsl(var(--background-secondary)); */
   }
 }
