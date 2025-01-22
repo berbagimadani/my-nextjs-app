@@ -143,7 +143,7 @@ export function ChartDemo() {
     <Card>
       <CardHeader className="flex flex-col items-stretch space-y-0 border-b p-0 sm:flex-row">
         <div className="flex flex-1 flex-col justify-center gap-1 px-6 py-5 sm:py-6">
-          <CardTitle>Bar Chart - Interactive</CardTitle>
+          <CardTitle>Today energy consumption trends</CardTitle>
           <CardDescription>
             Showing total visitors for the last 3 months
           </CardDescription>
@@ -172,7 +172,7 @@ export function ChartDemo() {
       <CardContent className="px-2 sm:p-6">
         <ChartContainer
           config={chartConfig}
-          className="aspect-auto h-[250px] w-full"
+          className="aspect-auto h-[185px] w-full"
         >
           <BarChart
             accessibilityLayer

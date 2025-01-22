@@ -4,6 +4,13 @@ const nextConfig: NextConfig = {
   /* config options here */
   images: {
     domains: ['via.placeholder.com'], 
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "ik.imagekit.io",
+        port: "",
+      },
+    ],
   },
   async rewrites() {
     return [

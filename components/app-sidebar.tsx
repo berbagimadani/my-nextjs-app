@@ -27,22 +27,79 @@ const data = {
   versions: ["1.0.1", "1.1.0-alpha", "2.0.0-beta1"],
   navMain: [
     {
-      title: "Building Your Application",
+      title: "Energy Management",
+      url: "#",
+      icon: SquareTerminal,
+      isActive: true,
+      items: [
+        {
+          title: "Energy Consumption Overview",
+          url: "about",
+        },
+        {
+          title: "Energy Consumption Statistics",
+          url: "content" 
+        },
+        {
+          title: "Energy Consumption Analysis",
+          url: "#"
+        }, 
+        {
+          title: "Energy Flow Direction",
+          url: "#"
+        }, 
+        {
+          title: "Files",
+          url: "files", 
+        }, 
+      ],
+    },
+    {
+      title: "Distribution Power",
       url: "#",
       icon: SquareTerminal,
       items: [
         {
-          title: "About",
+          title: "10kV Monitoring",
           url: "about",
         },
         {
-          title: "Content",
-          url: "content",
-          isActive: true,
+          title: "400kV Monitoring",
+          url: "content", 
         },
         {
-          title: "Rendering",
-          url: "#",
+          title: "Transformer",
+          url: "content", 
+        }, 
+      ],
+    },
+    {
+      title: "Reports",
+      url: "#",
+      icon: SquareTerminal,
+      items: [
+        {
+          title: "Energy Consumption Report",
+          url: "about",
+        },
+        {
+          title: "Distribution Report",
+          url: "#", 
+        }, 
+      ],
+    },
+    {
+      title: "Alarm Warning",
+      url: "#",
+      icon: SquareTerminal,
+      items: [
+        {
+          title: "Energy Consumption Report",
+          url: "about",
+        },
+        {
+          title: "Distribution Report",
+          url: "about", 
         }, 
       ],
     },
@@ -64,8 +121,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         {data.navMain.map((item) => (
           <Collapsible
             key={item.title}
-            title={item.title}
-            defaultOpen
+            title={item.title} 
+            defaultOpen={item.isActive} 
             className="group/collapsible"
           >
             <SidebarGroup>
@@ -84,7 +141,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   <SidebarMenu>
                     {item.items.map((item) => (
                       <SidebarMenuItem key={item.title}>
-                        <SidebarMenuButton asChild isActive={item.isActive}> 
+                        <SidebarMenuButton asChild> 
                           <Link className="p-4 hover:bg-gray-700" href={item.url}>
                             {item.title}
                           </Link>
