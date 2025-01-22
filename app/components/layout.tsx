@@ -22,7 +22,7 @@ const Layout: FC<{ children: React.ReactNode }> = ({ children }) => {
     <SidebarProvider >
     <AppSidebar />
     <SidebarInset>
-      <header className="flex sticky top-0 bg-content h-16 shrink-0 items-center gap-2 border-b px-4">
+      <header className="flex sticky top-0 bg-content h-16 shrink-0 items-center gap-2 border-b px-4 bg-background z-50">
         <SidebarTrigger className="-ml-1" />
         <Separator orientation="vertical" className="mr-2 h-4" />
         <Breadcrumb>
