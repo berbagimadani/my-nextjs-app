@@ -180,7 +180,7 @@ const Page = () => {
                       />
 
                       <div className="flex">
-                        {ikUploadRefTest && (
+                      {ikUploadRefTest && uploadedImageUrl == null && (
                           <Button
                             className="bg-slate-200"
                             onClick={() => ikUploadRefTest.current?.click()}
@@ -188,11 +188,8 @@ const Page = () => {
                             <Camera /> Upload
                           </Button>
                         )}
-                      </div>
-
                       {uploadedImageUrl && (
-                        <div className="flex">
-                          <h2>Uploaded Image</h2>
+                        <div className="flex"> 
                           <IKImage
                             src={uploadedImageUrl} // Tampilkan URL gambar
                             width="200"
@@ -201,6 +198,7 @@ const Page = () => {
                           />
                         </div>
                       )}
+                      </div>
                     </ImageKitProvider>
                     {/* ...other SDK components added previously */}
                   </div>
