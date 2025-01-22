@@ -8,8 +8,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormControl,
-  FormDescription,
+  FormControl, 
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
@@ -19,9 +18,13 @@ import { Button } from "@/components/ui/button";
 import { toast } from "@/hooks/use-toast";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { createFile } from "@/lib/actions/file";
-import { ImageKitProvider, IKImage, IKUpload } from "imagekitio-next";
-import { Camera } from "lucide-react";
-
+import { ImageKitProvider, IKUpload } from "imagekitio-next";
+import { Camera } from "lucide-react"; 
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@/components/ui/avatar"
 /**
  * ImageKIt
  */
@@ -55,7 +58,14 @@ const FormSchema = z.object({
   filename: z.string().min(2, {
     message: "filename must be at least 2 characters.",
   }),
+  url: z.string().min(2, {
+    message: "Url must be at least 2 characters.",
+  }),
+  fileid: z.string().min(2, {
+    message: "Url must be at least 2 characters.",
+  }),
 });
+
 
 const Page = () => {
   const ikUploadRefTest = useRef<HTMLInputElement | null>(null);
@@ -67,8 +77,12 @@ const Page = () => {
     resolver: zodResolver(FormSchema),
     defaultValues: {
       filename: "",
+      url: "",
+      fileid: "",
     },
   });
+
+  const { formState } = form;
 
   const onUploadProgress = (event: ProgressEvent) => {
     if (event.lengthComputable) {
@@ -86,11 +100,16 @@ const Page = () => {
     console.log("Success", res);
     setUploadedImageUrl(res.thumbnailUrl);
     form.setValue("filename", res.name);
+    form.setValue("url", res.url);
+    form.setValue("fileid", res.fileId);
     setUploading(false);
     setProgress(100);
   };
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
+    
+    console.log("Submit", data);
+
     const result = await createFile(data);
     if (result.success) {
       toast({
@@ -105,14 +124,14 @@ const Page = () => {
         variant: "destructive",
       });
     }
-    // toast({
-    //   title: "You submitted the following values:",
-    //   description: (
-    //     <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-    //       <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-    //     </pre>
-    //   ),
-    // });
+    toast({
+      title: "You submitted the following values:",
+      description: (
+        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
+        </pre>
+      ),
+    });
     form.reset();
     setUploadedImageUrl(null);
   }
@@ -135,18 +154,56 @@ const Page = () => {
                     control={form.control}
                     name="filename"
                     render={({ field }) => (
-                      <FormItem>
+                      <FormItem className="hidden">
                         <FormLabel>Filename</FormLabel>
                         <FormControl>
                           <Input placeholder="shadcn" {...field} />
-                        </FormControl>
-                        <FormDescription>
-                          This is your public display name.
-                        </FormDescription>
+                        </FormControl> 
                         <FormMessage />
                       </FormItem>
                     )}
                   />
+                  <FormField
+                    control={form.control}
+                    name="url"
+                    render={({ field }) => (
+                      <FormItem className="hidden"> 
+                        <FormControl>
+                          <Input  
+                            {...field}
+                          />
+                        </FormControl>  
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="fileid"
+                    render={({ field }) => (
+                      <FormItem className="hidden"> 
+                        <FormControl>
+                          <Input  
+                            {...field}
+                          />
+                        </FormControl>  
+                      </FormItem>
+                    )}
+                  />
+                  <Avatar className="w-40 h-40">
+                    {uploadedImageUrl && (
+                      <AvatarImage src={uploadedImageUrl} alt="@shadcn"/>
+                    )}
+
+                    <AvatarFallback>
+                       {formState.errors.filename?.message ? (
+                          <span className="text-red-500 text-sm text-center p-2">
+                            {formState.errors.filename.message}
+                          </span>
+                        ) : (
+                          "Fallback Image"
+                        )}
+                      </AvatarFallback> 
+                  </Avatar>
 
                   {/* Progress Bar */}
                   {uploading && (
@@ -167,7 +224,7 @@ const Page = () => {
                       authenticator={authenticator}
                     >
                       <IKUpload
-                        fileName="test-upload.jpg"
+                        // fileName="test-upload.jpg"
                         isPrivateFile={false}
                         useUniqueFileName={true}
                         validateFile={(file) => file.size < 2000000}
@@ -188,7 +245,7 @@ const Page = () => {
                             <Camera /> Upload
                           </Button>
                         )}
-                      {uploadedImageUrl && (
+                      {/* {uploadedImageUrl && (
                         <div className="flex"> 
                           <IKImage
                             src={uploadedImageUrl} // Tampilkan URL gambar
@@ -197,7 +254,7 @@ const Page = () => {
                             alt="Uploaded Image"
                           />
                         </div>
-                      )}
+                      )} */}
                       </div>
                     </ImageKitProvider>
                     {/* ...other SDK components added previously */}

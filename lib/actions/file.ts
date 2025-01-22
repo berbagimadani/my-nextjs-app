@@ -2,18 +2,20 @@
 
 import 'dotenv/config';
 import { drizzle } from 'drizzle-orm/node-postgres';
-import { usersTable } from '../../src/db/schema';
+import { filesTable } from '../../database/schema';
 
 const db = drizzle(process.env.DATABASE_URL!);
 
 interface fileType {
     filename: string;
+    url: string;
+    fileid: string;
 }
 
 export const createFile = async (params: fileType) => {
   try {
     const newBook = await db
-      .insert(usersTable)
+      .insert(filesTable)
       .values(params)
       .returning();
 

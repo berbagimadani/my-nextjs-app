@@ -1,17 +1,19 @@
 import 'dotenv/config';
 import { drizzle } from 'drizzle-orm/node-postgres';
-import { usersTable } from './db/schema';
+import { filesTable } from './schema';
 import { eq } from 'drizzle-orm';
 
 const db = drizzle(process.env.DATABASE_URL!);
 
 async function main() {
-    const user: typeof usersTable.$inferInsert = {
-      filename: 'John',  
+    const file: typeof filesTable.$inferInsert = {
+      filename: 'John',
+      url: '',
+      fileid: ''
     };
-    await db.insert(usersTable).values(user);
+    await db.insert(filesTable).values(file);
     console.log('New user created!')
-    const users = await db.select().from(usersTable);
+    const users = await db.select().from(filesTable);
     console.log('Getting all users from the database: ', users)
     /*
     const users: {
@@ -22,13 +24,13 @@ async function main() {
     }[]
     */
     await db
-      .update(usersTable)
+      .update(filesTable)
       .set({
         filename: "aaaaaaaaaaaupdate",
       })
-      .where(eq(usersTable.filename, user.filename));
+      .where(eq(filesTable.filename, file.filename));
     console.log('User info updated!')
-    await db.delete(usersTable).where(eq(usersTable.filename, user.filename));
+    await db.delete(filesTable).where(eq(filesTable.filename, file.filename));
     console.log('User deleted!')
   }
   main();
