@@ -9,6 +9,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import Image from "next/image"
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card"; 
 import { fetchFile } from "@/lib/actions/fetchfile";
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar"; 
@@ -83,13 +84,15 @@ export function ListFiles() {
             {files.map((file) => (
               <TableRow key={file.id}>
                 <TableCell>
-                  {/* Avatar lebih besar */}
-                  <Avatar className="w-16 h-16">
-                    <AvatarImage src={file.url ? file.url : "/"} alt="@shadcn" />
-                    <AvatarFallback className="rounded-none">
-                      Fallback Image
-                    </AvatarFallback>
-                  </Avatar>
+                  {/* Avatar dengan Next.js Image */}
+          <div className="relative w-24 h-24 rounded-full overflow-hidden">
+            <Image
+              src={file.url || "/fallback-image.png"} // URL gambar atau fallback
+              alt={file.filename || "Fallback"}
+              layout="fill" // Mengisi area container
+              objectFit="cover" // Agar gambar tidak terdistorsi
+            />
+          </div>
                 </TableCell>
                 <TableCell className="break-words max-w-xs">
                   {/* Teks bisa wrap */}
