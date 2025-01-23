@@ -72,30 +72,33 @@ export function ListFiles() {
         ) : (
           <div></div>
         )}
-          <Table> 
-            <TableHeader>
-              <TableRow> 
-                <TableHead>Image</TableHead>
-                <TableHead>Filename</TableHead> 
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Image</TableHead>
+              <TableHead>Filename</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {files.map((file) => (
+              <TableRow key={file.id}>
+                <TableCell>
+                  {/* Avatar lebih besar */}
+                  <Avatar className="w-16 h-16">
+                    <AvatarImage src={file.url ? file.url : "/"} alt="@shadcn" />
+                    <AvatarFallback className="rounded-none">
+                      Fallback Image
+                    </AvatarFallback>
+                  </Avatar>
+                </TableCell>
+                <TableCell className="break-words max-w-xs">
+                  {/* Teks bisa wrap */}
+                  {file.filename}
+                </TableCell>
               </TableRow>
-            </TableHeader>
-            <TableBody>
-              {files.map((file) => (
-                <TableRow key={file.id}> 
-                  <TableCell>
-                  <Avatar> 
-                      <AvatarImage src={file.url ? file.url : "/"} alt="@shadcn" className="w-20"/> 
-                      <AvatarFallback className="rounded-none">
-                        Fallback Image
-                      </AvatarFallback> 
-                    </Avatar>
-                  </TableCell>
-                  <TableCell>{file.filename}</TableCell> 
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        
+            ))}
+          </TableBody>
+        </Table>
       </CardContent>
  
     </Card>
