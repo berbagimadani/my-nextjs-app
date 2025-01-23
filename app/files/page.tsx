@@ -56,7 +56,7 @@ const onError = (err: any) => {
 
 const FormSchema = z.object({
   filename: z.string().min(2, {
-    message: "filename must be at least 2 characters.",
+    message: "Please uploaded image",
   }),
   url: z.string().min(2, {
     message: "Url must be at least 2 characters.",
@@ -69,7 +69,7 @@ const FormSchema = z.object({
 
 const Page = () => {
   const ikUploadRefTest = useRef<HTMLInputElement | null>(null);
-  const [uploadedImageUrl, setUploadedImageUrl] = useState<string | null>(null);
+  const [uploadedImageUrl, setUploadedImageUrl] = useState<string | null>("/");
   const [progress, setProgress] = useState<number>(0);
   const [uploading, setUploading] = useState<boolean>(false);
 
@@ -133,22 +133,22 @@ const Page = () => {
       ),
     });
     form.reset();
-    setUploadedImageUrl("http://");
+    setUploadedImageUrl("/");
   }
 
   return (
     <Layout>
       <div className="flex flex-col xl:flex-row gap-4">
         <div className="w-full xl:w-2/5">
-          <Card className="pb-4">
-            <CardHeader>
+          <Card className="p-6">
+            <CardHeader className="p-0">
               <CardTitle>Upload File</CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="p-0 flex">
               <Form {...form}>
                 <form
                   onSubmit={form.handleSubmit(onSubmit)}
-                  className="space-y-8"
+                  className="space-y-2"
                 >
                   <FormField
                     control={form.control}
@@ -189,35 +189,21 @@ const Page = () => {
                       </FormItem>
                     )}
                   />
-                  <Avatar className="w-40 h-40">
-                    {uploadedImageUrl && (
-                      <AvatarImage src={uploadedImageUrl} alt="@shadcn"/>
-                    )}
+                  
 
-                    <AvatarFallback>
-                       {formState.errors.filename?.message ? (
-                          <span className="text-red-500 text-sm text-center p-2">
-                            {formState.errors.filename.message}
-                          </span>
-                        ) : (
-                          "Fallback Image"
-                        )}
-                      </AvatarFallback> 
-                  </Avatar>
-
-                  {/* Progress Bar */}
-                  {uploading && (
-                    <div className="w-full bg-gray-600 rounded flex">
-                      <div
-                        className="bg-blue-500 text-xs leading-none py-1 text-center text-gray-400 rounded"
-                        style={{ width: `${progress}%` }}
-                      >
-                        {progress}%
-                      </div>
-                    </div>
-                  )}
-
-                  <div className="flex">
+                  <div className="flex flex-col border p-2 gap-2">
+                    <Avatar className="w-40 h-40 rounded-none"> 
+                      <AvatarImage src={uploadedImageUrl ? uploadedImageUrl : "/"} alt="@shadcn"/> 
+                      <AvatarFallback className="rounded-none">
+                        {formState.errors.filename?.message ? (
+                            <span className="text-red-500 text-sm text-center p-2">
+                              {formState.errors.filename.message}
+                            </span>
+                          ) : (
+                            "Fallback Image"
+                          )}
+                        </AvatarFallback> 
+                    </Avatar>
                     <ImageKitProvider
                       publicKey={publicKey}
                       urlEndpoint={urlEndpoint}
@@ -236,8 +222,8 @@ const Page = () => {
                         ref={ikUploadRefTest}
                       />
 
-                      <div className="flex">
-                      {ikUploadRefTest && uploadedImageUrl == null && (
+                      <div className="flex justify-center w-full">
+                      {ikUploadRefTest && uploadedImageUrl == "/" && (
                           <Button
                             className="bg-slate-200"
                             onClick={() => ikUploadRefTest.current?.click()}
@@ -245,6 +231,7 @@ const Page = () => {
                             <Camera /> Upload
                           </Button>
                         )}
+                        
                       {/* {uploadedImageUrl && (
                         <div className="flex"> 
                           <IKImage
@@ -260,7 +247,22 @@ const Page = () => {
                     {/* ...other SDK components added previously */}
                   </div>
 
-                  <Button type="submit">Submit</Button>
+                   {/* Progress Bar */}
+                  {uploading && (
+                    <div className="w-full bg-gray-600 rounded flex">
+                      <div
+                        className="bg-blue-500 text-xs leading-none py-1 text-center text-gray-400 rounded"
+                        style={{ width: `${progress}%` }}
+                      >
+                        {progress}%
+                      </div>
+                    </div>
+                  )}
+
+
+                  <div className="pt-5">
+                    <Button type="submit">Submit</Button>
+                  </div>
                 </form>
               </Form>
             </CardContent>
