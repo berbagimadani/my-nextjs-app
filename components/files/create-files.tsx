@@ -117,7 +117,7 @@ const CreateFile = () => {
 
  
       
-      addItem({ id: Date.now(), filename: "aa", url: "ssss", fileid: "ssssss" })
+      addItem({ id: Date.now(), filename: data.filename, url: data.url, fileid: data.fileid })
 
       //router.push(`/admin/books/${result.data.id}`);
     } else {

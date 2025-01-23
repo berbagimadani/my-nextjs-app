@@ -43,17 +43,18 @@ export function ListFiles() {
     }
   };
 
-  useEffect(() => {
+  useEffect(() => { 
+    fetchProducts(1);  
+  }, []);
 
+  useEffect(() => {
     if (items.length > 0) {
       // Filter untuk menghindari duplikasi data berdasarkan id
-      // const uniqueFiles = contextFiles.filter(
-      //   (newFile) => !files.some((file) => file.id === newFile.id)
-      // );
-      // setFiles((prevFiles) => [...prevFiles, ...uniqueFiles]);
-      fetchProducts(1);  
-    }
-    fetchProducts(1);  
+      const uniqueFiles = items.filter(
+        (newFile) => !files.some((file) => file.fileid === newFile.fileid)
+      );
+      setFiles((prevFiles) => [...uniqueFiles, ...prevFiles]);   
+    } 
   }, [items]);
   
  
@@ -83,7 +84,7 @@ export function ListFiles() {
                 <TableRow key={file.id}> 
                   <TableCell>
                   <Avatar> 
-                      <AvatarImage src={file.url ? file.url : "/"} alt="@shadcn"/> 
+                      <AvatarImage src={file.url ? file.url : "/"} alt="@shadcn" className="w-20"/> 
                       <AvatarFallback className="rounded-none">
                         Fallback Image
                       </AvatarFallback> 
