@@ -107,9 +107,13 @@ export function ListFiles() {
               <div className="relative w-24 h-24 rounded-md overflow-hidden">
                 <Image
                   src={file.url || "/fallback-image.png"}
-                  alt={file.filename || "Fallback"}
-                  layout="fill"
-                  objectFit="cover"
+                  alt={file.filename || "Fallback"} 
+                  width={200}
+                  height={100}
+                  style={{
+                    objectFit: "cover",
+                  }}
+                  priority={true}
                 />
               </div>
               {/* Teks nama file */}

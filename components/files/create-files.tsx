@@ -1,13 +1,13 @@
 "use client";
 
-import React, { useRef, useState } from "react"; 
+import React, { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import {
   Form,
   FormField,
   FormItem,
   FormLabel,
-  FormControl, 
+  FormControl,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
@@ -18,13 +18,9 @@ import { toast } from "@/hooks/use-toast";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { createFile } from "@/lib/actions/createfile";
 import { ImageKitProvider, IKUpload } from "imagekitio-next";
-import { Camera } from "lucide-react"; 
+import { Camera } from "lucide-react";
 import { useDataContext } from "@/context/DataContext";
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "@/components/ui/avatar"  
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 /**
  * ImageKIt
  */
@@ -65,7 +61,6 @@ const FormSchema = z.object({
     message: "Url must be at least 2 characters.",
   }),
 });
-
 
 const CreateFile = () => {
   const ikUploadRefTest = useRef<HTMLInputElement | null>(null);
@@ -115,9 +110,12 @@ const CreateFile = () => {
         description: "File created successfully",
       });
 
- 
-      
-      addItem({ id: Date.now(), filename: data.filename, url: data.url, fileid: data.fileid })
+      addItem({
+        id: Date.now(),
+        filename: data.filename,
+        url: data.url,
+        fileid: data.fileid,
+      });
 
       //router.push(`/admin/books/${result.data.id}`);
     } else {
@@ -139,82 +137,77 @@ const CreateFile = () => {
     setUploadedImageUrl("/");
   }
 
-  return ( 
+  return (
     <div className="">
-        <Card className="p-6 justify-center items-center flex flex-col">
+      <Card className="p-6 justify-center items-center flex flex-col">
         <CardHeader className="p-0">
-            <CardTitle>Upload File</CardTitle>
+          <CardTitle>Upload File</CardTitle>
         </CardHeader>
         <CardContent className="p-0 flex">
-
-        {/* <button onClick={() => addItem({ id: Date.now(), filename: "aa", url: "ssss", fileid: "ssssss" })}>
+          {/* <button onClick={() => addItem({ id: Date.now(), filename: "aa", url: "ssss", fileid: "ssssss" })}>
           Update State
         </button> */}
 
-            <Form {...form}>
-            <form
-                onSubmit={form.handleSubmit(onSubmit)}
-                className="space-y-2"
-            >
-                <FormField
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
+              <FormField
                 control={form.control}
                 name="filename"
                 render={({ field }) => (
-                    <FormItem className="hidden">
+                  <FormItem className="hidden">
                     <FormLabel>Filename</FormLabel>
                     <FormControl>
-                        <Input placeholder="shadcn" {...field} />
-                    </FormControl> 
+                      <Input placeholder="shadcn" {...field} />
+                    </FormControl>
                     <FormMessage />
-                    </FormItem>
+                  </FormItem>
                 )}
-                />
-                <FormField
+              />
+              <FormField
                 control={form.control}
                 name="url"
                 render={({ field }) => (
-                    <FormItem className="hidden"> 
+                  <FormItem className="hidden">
                     <FormControl>
-                        <Input  
-                        {...field}
-                        />
-                    </FormControl>  
-                    </FormItem>
+                      <Input {...field} />
+                    </FormControl>
+                  </FormItem>
                 )}
-                />
-                <FormField
+              />
+              <FormField
                 control={form.control}
                 name="fileid"
                 render={({ field }) => (
-                    <FormItem className="hidden"> 
+                  <FormItem className="hidden">
                     <FormControl>
-                        <Input  
-                        {...field}
-                        />
-                    </FormControl>  
-                    </FormItem>
+                      <Input {...field} />
+                    </FormControl>
+                  </FormItem>
                 )}
-                />
-                
-                <div className="flex flex-col border p-2 gap-2">
-                <Avatar className="w-40 h-40 rounded-none"> 
-                    <AvatarImage src={uploadedImageUrl ? uploadedImageUrl : "/"} alt="@shadcn"/> 
-                    <AvatarFallback className="rounded-none">
+              />
+
+              <div className="flex flex-col border p-2 gap-2">
+                <Avatar className="w-40 h-40 rounded-none">
+                  <AvatarImage
+                    src={uploadedImageUrl ? uploadedImageUrl : "/"}
+                    alt="@shadcn"
+                  />
+                  <AvatarFallback className="rounded-none">
                     {formState.errors.filename?.message ? (
-                        <span className="text-red-500 text-sm text-center p-2">
-                            {formState.errors.filename.message}
-                        </span>
-                        ) : (
-                        "Fallback Image"
-                        )}
-                    </AvatarFallback> 
+                      <span className="text-red-500 text-sm text-center p-2">
+                        {formState.errors.filename.message}
+                      </span>
+                    ) : (
+                      "Fallback Image"
+                    )}
+                  </AvatarFallback>
                 </Avatar>
                 <ImageKitProvider
-                    publicKey={publicKey}
-                    urlEndpoint={urlEndpoint}
-                    authenticator={authenticator}
+                  publicKey={publicKey}
+                  urlEndpoint={urlEndpoint}
+                  authenticator={authenticator}
                 >
-                    <IKUpload
+                  <IKUpload
                     // fileName="test-upload.jpg"
                     isPrivateFile={false}
                     useUniqueFileName={true}
@@ -225,18 +218,18 @@ const CreateFile = () => {
                     onUploadStart={onUploadStart}
                     style={{ display: "none" }} // hide the default input and use the custom upload button
                     ref={ikUploadRefTest}
-                    />
+                  />
 
-                    <div className="flex justify-center w-full">
+                  <div className="flex justify-center w-full">
                     {ikUploadRefTest && uploadedImageUrl == "/" && (
-                        <Button
+                      <Button
                         className="bg-slate-200"
                         onClick={() => ikUploadRefTest.current?.click()}
-                        >
+                      >
                         <Camera /> Upload
-                        </Button>
+                      </Button>
                     )}
-                    
+
                     {/* {uploadedImageUrl && (
                     <div className="flex"> 
                         <IKImage
@@ -247,31 +240,31 @@ const CreateFile = () => {
                         />
                     </div>
                     )} */}
-                    </div>
+                  </div>
                 </ImageKitProvider>
                 {/* ...other SDK components added previously */}
-                </div>
+              </div>
 
-                {/* Progress Bar */}
-                {uploading && (
+              {/* Progress Bar */}
+              {uploading && (
                 <div className="w-full bg-gray-600 rounded flex">
-                    <div
+                  <div
                     className="bg-blue-500 text-xs leading-none py-1 text-center text-gray-400 rounded"
                     style={{ width: `${progress}%` }}
-                    >
+                  >
                     {progress}%
-                    </div>
+                  </div>
                 </div>
-                )}
+              )}
 
-                <div className="pt-5 justify-end flex">
+              <div className="pt-5 justify-end flex">
                 <Button type="submit">Submit</Button>
-                </div>
+              </div>
             </form>
-            </Form>
+          </Form>
         </CardContent>
-        </Card>
-    </div>   
+      </Card>
+    </div>
   );
 };
 
