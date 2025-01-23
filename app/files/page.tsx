@@ -133,7 +133,7 @@ const Page = () => {
       ),
     });
     form.reset();
-    setUploadedImageUrl(null);
+    setUploadedImageUrl("http://");
   }
 
   return (
