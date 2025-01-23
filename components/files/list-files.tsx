@@ -53,7 +53,7 @@ export function ListFiles() {
       // setFiles((prevFiles) => [...prevFiles, ...uniqueFiles]);
       fetchProducts(1);  
     }
-    //fetchProducts(1);  
+    fetchProducts(1);  
   }, [items]);
   
  
@@ -63,21 +63,7 @@ export function ListFiles() {
         <CardTitle>Table files</CardTitle>
       </CardHeader>
       <CardContent className="flex-1 h-auto">
-      <div>
-      <h2>Item List</h2>
-      {items.length === 0 ? (
-        <p>No items added yet.</p>
-      ) : (
-        <ul>
-          {items.map((item) => (
-            <li key={item.id}>
-              {item.filename}
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
-
+      
         {loading ? (
           <div>Loading...</div>
         ) : error ? (

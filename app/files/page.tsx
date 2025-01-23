@@ -10,8 +10,12 @@ export default function Page() {
     <DataProvider>
       <Layout>
       <div className="flex gap-2">
-        <CreateFile></CreateFile>
-        <ListFiles></ListFiles>
+        <div className="w-2/6">
+          <CreateFile></CreateFile>
+        </div>
+        <div className="w-full">
+          <ListFiles></ListFiles>
+        </div>
        </div>
       </Layout>
     </DataProvider>

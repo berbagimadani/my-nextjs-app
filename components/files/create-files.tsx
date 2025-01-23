@@ -140,16 +140,16 @@ const CreateFile = () => {
   }
 
   return ( 
-    <div className="w-2/6">
+    <div className="">
         <Card className="p-6 justify-center items-center flex flex-col">
         <CardHeader className="p-0">
             <CardTitle>Upload File</CardTitle>
         </CardHeader>
         <CardContent className="p-0 flex">
 
-        <button onClick={() => addItem({ id: Date.now(), filename: "aa", url: "ssss", fileid: "ssssss" })}>
-        Update State
-      </button>
+        {/* <button onClick={() => addItem({ id: Date.now(), filename: "aa", url: "ssss", fileid: "ssssss" })}>
+          Update State
+        </button> */}
 
             <Form {...form}>
             <form
