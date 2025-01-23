@@ -9,7 +9,7 @@ export default function Page() {
   return (
     <DataProvider>
       <Layout>
-      <div className="flex gap-2">
+      <div className="flex gap-4">
         <div className="w-2/6">
           <CreateFile></CreateFile>
         </div>

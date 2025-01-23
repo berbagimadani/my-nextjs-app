@@ -1,6 +1,14 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import Image from "next/image";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { fetchFile } from "@/lib/actions/fetchfile";
@@ -22,7 +30,7 @@ export function ListFiles() {
   const [page, setPage] = useState(1); 
 
   const fetchProducts = async (page: number) => {
-    const pageSize = 12
+    const pageSize = 10
     try {
       setLoading(true);
       setError(null);
@@ -61,10 +69,6 @@ export function ListFiles() {
     setPage((prev) => Math.max(prev - 1, 1));
   };
 
-  const truncateString = (str: string, maxLength: number) => {
-    return str.length > maxLength ? `${str.substring(0, maxLength)}...` : str;
-  };
-
   return (
     <Card className="pb-4">
       <CardHeader>
@@ -78,28 +82,35 @@ export function ListFiles() {
         ) : (
           <div></div>
         )}
-        <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
-      {files.map((file) => (
-        <div
-          key={file.id}
-          className="flex flex-col items-center space-y-2 p-4 border rounded-md shadow-sm"
-        >
-          {/* Avatar dengan gambar */}
-          <div className="relative w-24 h-24 rounded-md overflow-hidden">
-            <Image
-              src={file.url || "/fallback-image.png"}
-              alt={file.filename || "Fallback"}
-              layout="fill"
-              objectFit="cover"
-            />
-          </div>
-          {/* Teks nama file */}
-          <p className="text-center text-sm font-medium break-words max-w-full">
-            {truncateString(file.filename, 20)}
-          </p>
-        </div>
-      ))}
-    </div>
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Image</TableHead>
+              <TableHead>Filename</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {files.map((file) => (
+              <TableRow key={file.id}>
+                <TableCell>
+                  {/* Avatar dengan Next.js Image */}
+                  <div className="relative w-24 h-24 rounded-md overflow-hidden">
+                    <Image
+                      src={file.url || "/fallback-image.png"} // URL gambar atau fallback
+                      alt={file.filename || "Fallback"}
+                      layout="fill" // Mengisi area container
+                      objectFit="cover" // Agar gambar tidak terdistorsi
+                    />
+                  </div>
+                </TableCell>
+                <TableCell className="break-words max-w-xs">
+                  {/* Teks bisa wrap */}
+                  {file.filename}
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
       </CardContent>
       <Pagination>
         <PaginationContent>
