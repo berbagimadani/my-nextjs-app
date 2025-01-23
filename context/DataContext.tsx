@@ -3,7 +3,9 @@ import React, { createContext, useContext, useState, ReactNode } from "react";
 // 1. Definisikan tipe data
 interface Item {
   id: number;
-  name: string;
+  filename: string;
+  url: string;
+  fileid: string;
 }
 
 interface DataContextState {

@@ -14,7 +14,7 @@ import { fetchFile } from "@/lib/actions/fetchfile";
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar"; 
 import { useDataContext } from "@/context/DataContext";
 
-interface Product {
+interface File {
   id: number;
   filename: string;
   url: string;
@@ -22,7 +22,7 @@ interface Product {
 }
 
 export function ListFiles() {
-  const [products, setProducts] = useState<Product[]>([]);
+  const [files, setFiles] = useState<File[]>([]);
   const [loading, setLoading] = useState(false); 
   const [error, setError] = useState<string | null>(null); 
   const { items } = useDataContext();
@@ -34,7 +34,7 @@ export function ListFiles() {
 
       const result = await fetchFile(page);
       if (result.success) { 
-        setProducts(result.data);
+        setFiles(result.data);
       }  
     } catch (error) {
       console.error("Terjadi kesalahan:", error);
@@ -44,8 +44,17 @@ export function ListFiles() {
   };
 
   useEffect(() => {
-    fetchProducts(1);  
-  }, []);
+
+    if (items.length > 0) {
+      // Filter untuk menghindari duplikasi data berdasarkan id
+      // const uniqueFiles = contextFiles.filter(
+      //   (newFile) => !files.some((file) => file.id === newFile.id)
+      // );
+      // setFiles((prevFiles) => [...prevFiles, ...uniqueFiles]);
+      fetchProducts(1);  
+    }
+    //fetchProducts(1);  
+  }, [items]);
   
  
   return (
@@ -62,7 +71,7 @@ export function ListFiles() {
         <ul>
           {items.map((item) => (
             <li key={item.id}>
-              {item.name}
+              {item.filename}
             </li>
           ))}
         </ul>
@@ -84,17 +93,17 @@ export function ListFiles() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {products.map((product) => (
-                <TableRow key={product.id}> 
+              {files.map((file) => (
+                <TableRow key={file.id}> 
                   <TableCell>
                   <Avatar> 
-                      <AvatarImage src={product.url ? product.url : "/"} alt="@shadcn"/> 
+                      <AvatarImage src={file.url ? file.url : "/"} alt="@shadcn"/> 
                       <AvatarFallback className="rounded-none">
                         Fallback Image
                       </AvatarFallback> 
                     </Avatar>
                   </TableCell>
-                  <TableCell>{product.filename}</TableCell> 
+                  <TableCell>{file.filename}</TableCell> 
                 </TableRow>
               ))}
             </TableBody>

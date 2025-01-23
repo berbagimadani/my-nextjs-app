@@ -117,6 +117,7 @@ const CreateFile = () => {
 
  
       
+      addItem({ id: Date.now(), filename: "aa", url: "ssss", fileid: "ssssss" })
 
       //router.push(`/admin/books/${result.data.id}`);
     } else {
@@ -146,7 +147,7 @@ const CreateFile = () => {
         </CardHeader>
         <CardContent className="p-0 flex">
 
-        <button onClick={() => addItem({ id: Date.now(), name: "aa" })}>
+        <button onClick={() => addItem({ id: Date.now(), filename: "aa", url: "ssss", fileid: "ssssss" })}>
         Update State
       </button>
 
