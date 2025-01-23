@@ -50,7 +50,7 @@ const data = {
         }, 
         {
           title: "Files",
-          url: "files", 
+          url: "/files", 
         }, 
       ],
     },
