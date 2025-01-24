@@ -23,6 +23,7 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { redirect } from 'next/navigation'
+import { SearchForm } from "../search-form";
 
 interface File {
   id: number;
@@ -35,14 +36,16 @@ export function ListFiles() {
   const searchParams = useSearchParams() 
 
   const currentPage = parseInt(searchParams?.get("page") || "1", 10);
+  const currentSearch = searchParams?.get("search") || "";
 
   const [files, setFiles] = useState<File[]>([]); 
   const { items } = useDataContext();
   const [page, setPage] = useState(currentPage);
+  const [search, setSearch] = useState(currentSearch);
 
   const fetchFiles = async (page: number) => {
 
-    fetch(`/api/files/fetch-all?page=${page}`)
+    fetch(`/api/files/fetch-all?page=${page}&search=${search}`)
     .then((res) => res.json())
     .then((data) => setFiles(data));
 
@@ -101,6 +104,10 @@ export function ListFiles() {
       </CardHeader>
       <CardContent className="flex-1 h-auto">
         
+        <div className="flex pb-4">
+          <SearchForm />
+        </div>
+
         <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
           {files.map((file) => (
             <div
