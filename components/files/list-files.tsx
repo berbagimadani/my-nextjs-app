@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
-import { fetchFile } from "@/lib/actions/fetchfile";
+// import { fetchFile } from "@/lib/actions/fetchfile";
 import { useDataContext } from "@/context/DataContext";
 import { useSearchParams } from 'next/navigation'
 import {
@@ -42,7 +42,7 @@ export function ListFiles() {
 
   const fetchProducts = async (page: number) => {
 
-    fetch('/api/datafileapi?page=' + page)
+    fetch(`/api/datafileapi?page=${page}`)
     .then((res) => res.json())
     .then((data) => setFiles(data));
 

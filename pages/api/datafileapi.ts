@@ -7,7 +7,6 @@ import { desc } from 'drizzle-orm';
 
 const db = drizzle(process.env.DATABASE_URL!);
  
-
 export const getStaticProps = async (page: number) => {
   const pageSize = 12
   const data = await db.select()
@@ -19,13 +18,14 @@ export const getStaticProps = async (page: number) => {
         props: {
           files: data
         },
-        revalidate: 60, // Caching selama 1 menit
+        revalidate: 3600, // Caching expired
       };
 };
 
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const props = await getStaticProps(1); 
+export default async function handler(req: NextApiRequest, res: NextApiResponse) { 
+  const page = parseInt(req.query.page as string) || 1;
+  const props = await getStaticProps(page); 
   return res.json(props.props.files);
 }
 
