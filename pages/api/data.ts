@@ -13,7 +13,7 @@ export const getStaticProps = async () => {
     props: {
       products: data.products
     },
-    revalidate: 1060, // Caching selama 1 menit
+    revalidate: 60, // Caching selama 1 menit
   };
 };
 

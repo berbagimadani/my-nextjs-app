@@ -8,7 +8,6 @@ import { unstable_cache } from 'next/cache'
 
 const db = drizzle(process.env.DATABASE_URL!);
 
-
 const getFiles = unstable_cache(
   async (page: number, pageSize: number) => {
     return await db.select()
@@ -30,7 +29,7 @@ export const fetchFile = async (page: number, pageSize: number) => {
     //   .offset((page - 1) * pageSize);
 
     const data =  await getFiles(page, pageSize)
-    
+
     return {
       success: true,
       data: JSON.parse(JSON.stringify(data)),

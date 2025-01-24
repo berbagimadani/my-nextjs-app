@@ -42,20 +42,20 @@ export function ListFiles() {
 
   const fetchProducts = async (page: number) => {
 
-    // fetch('/api/datafile')
-    // .then((res) => res.json())
-    // .then((data) => setFiles(data));
+    fetch('/api/datafileapi?page=' + page)
+    .then((res) => res.json())
+    .then((data) => setFiles(data));
 
-    const pageSize = 12;
-    try { 
-      const result = await fetchFile(page, pageSize);
-      if (result.success) {
-        setFiles(result.data);
-      }
-    } catch (error) {
-      console.error("Terjadi kesalahan:", error);
-    } finally { 
-    }
+    // const pageSize = 12;
+    // try { 
+    //   const result = await fetchFile(page, pageSize);
+    //   if (result.success) {
+    //     setFiles(result.data);
+    //   }
+    // } catch (error) {
+    //   console.error("Terjadi kesalahan:", error);
+    // } finally { 
+    // }
   };
 
   useEffect(() => {

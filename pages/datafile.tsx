@@ -1,9 +1,9 @@
-import { fetchFile } from '@/lib/actions/fetchfileMemoryCache';
+import { fetchfileMemoryCache } from '@/lib/actions/fetchfileMemoryCache';
 
 export const getStaticProps = async () => {
-  const pageSize = 40;
+  const pageSize = 140;
   const page = 1; // Misalnya Anda ingin mendapatkan halaman 1
-  const result = await fetchFile(page, pageSize);
+  const result = await fetchfileMemoryCache(page, pageSize);
 
   return {
     props: {

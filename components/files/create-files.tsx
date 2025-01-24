@@ -21,6 +21,7 @@ import { ImageKitProvider, IKUpload } from "imagekitio-next";
 import { Camera } from "lucide-react";
 import { useDataContext } from "@/context/DataContext";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+
 /**
  * ImageKIt
  */

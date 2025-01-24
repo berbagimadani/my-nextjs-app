@@ -1,11 +1,11 @@
 import Layout from "../../components/layout"; 
-import { EnergyBadge } from "@/components/custom/energy-badge";  
-// import { Button } from "@/components/ui/button";
-// import { ChevronLeft } from "lucide-react";
+import { EnergyBadge } from "@/components/custom/energy-badge";   
 import Link from "next/link";
 import Image from "next/image";
 import { getFile } from "@/lib/actions/getfile";
-import { BackButton } from "@/components/BackButton";
+// import { BackButton } from "@/components/BackButton";
+import { Button } from "@/components/ui/button";
+import { ChevronLeft } from "lucide-react";
 
 export default async function Page({ params }: { params: Promise<{ id: string }> }) {  
   const { id } = await params;
@@ -34,13 +34,13 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
       {/* Header */}
       <div className="flex justify-between items-center mb-5">
         <div className="flex items-center">
-          {/* <Link href="/files">
+          <Link href="/files">
             <Button variant="outline" size="icon" className="mr-2">
               <ChevronLeft />
             </Button>
             Go Back
-          </Link> */}
-           <BackButton />  
+          </Link>
+           {/* <BackButton />   */}
         </div>
         <h1 className="text-lg font-bold">Chart {id}</h1>
       </div>
