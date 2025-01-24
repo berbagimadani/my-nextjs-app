@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { fetchFile } from "@/lib/actions/fetchfile";
 import { useDataContext } from "@/context/DataContext";
+import { useSearchParams } from 'next/navigation'
 import {
   Pagination,
   PaginationContent,
@@ -31,31 +32,40 @@ interface File {
 }
 
 export function ListFiles() {
-  const [files, setFiles] = useState<File[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const searchParams = useSearchParams() 
+
+  const currentPage = parseInt(searchParams?.get("page") || "1", 10);
+
+  const [files, setFiles] = useState<File[]>([]); 
   const { items } = useDataContext();
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(currentPage);
 
   const fetchProducts = async (page: number) => {
-    const pageSize = 12;
-    try {
-      setLoading(true);
-      setError(null);
 
+    // fetch('/api/datafile')
+    // .then((res) => res.json())
+    // .then((data) => setFiles(data));
+
+    const pageSize = 12;
+    try { 
       const result = await fetchFile(page, pageSize);
       if (result.success) {
         setFiles(result.data);
       }
     } catch (error) {
       console.error("Terjadi kesalahan:", error);
-    } finally {
-      setLoading(false);
+    } finally { 
     }
   };
 
   useEffect(() => {
     fetchProducts(page);
+
+    // Update URL tanpa navigasi ulang
+    const url = new URL(window.location.href);
+    url.searchParams.set("page", page.toString());
+    window.history.replaceState({}, "", url.toString());
+
   }, [page]);
 
   useEffect(() => {
@@ -81,7 +91,7 @@ export function ListFiles() {
   };
 
   const clickViewDetail = (file: string) => { 
-    redirect(`/files/${file}`)
+    redirect(`/files/${file}?page=${page}`)
   };
 
   return (
@@ -90,13 +100,7 @@ export function ListFiles() {
         <CardTitle>Table files</CardTitle>
       </CardHeader>
       <CardContent className="flex-1 h-auto">
-        {loading ? (
-          <div>Loading...</div>
-        ) : error ? (
-          <div className="text-red-500">{error}</div>
-        ) : (
-          <div></div>
-        )}
+        
         <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
           {files.map((file) => (
             <div
@@ -159,7 +163,7 @@ export function ListFiles() {
             <PaginationPrevious onClick={handlePrev} />
           </PaginationItem>
           <PaginationItem>
-            <PaginationLink href="#">Page {page}</PaginationLink>
+            <PaginationLink>Page {page}</PaginationLink>
           </PaginationItem>
           {/* <PaginationItem>
             <PaginationEllipsis />

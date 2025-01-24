@@ -3,7 +3,7 @@
 import { ListFiles } from "@/components/files/list-files"; 
 import Layout from "../components/layout";
 import CreateFile from "@/components/files/create-files";
-import { DataProvider } from "@/context/DataContext";
+import { DataProvider } from "@/context/DataContext"; 
 
 export default function Page() {
   return (

@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/table";
 import Image from "next/image";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
-import { fetchFile } from "@/lib/actions/fetchfile";
+import { fetchFile } from "@/lib/actions/fetchfileMemoryCache";
 import { useDataContext } from "@/context/DataContext";
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "../ui/pagination";
 
