@@ -40,9 +40,9 @@ export function ListFiles() {
   const { items } = useDataContext();
   const [page, setPage] = useState(currentPage);
 
-  const fetchProducts = async (page: number) => {
+  const fetchFiles = async (page: number) => {
 
-    fetch(`/api/files?page=${page}`)
+    fetch(`/api/files/fetch-all?page=${page}`)
     .then((res) => res.json())
     .then((data) => setFiles(data));
 
@@ -59,7 +59,7 @@ export function ListFiles() {
   };
 
   useEffect(() => {
-    fetchProducts(page);
+    fetchFiles(page);
 
     // Update URL tanpa navigasi ulang
     const url = new URL(window.location.href);

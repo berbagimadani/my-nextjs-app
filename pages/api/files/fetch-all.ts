@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 
 import 'dotenv/config';
 import { drizzle } from 'drizzle-orm/node-postgres';
-import { filesTable } from '../../database/schema';
+import { filesTable } from '@/database/schema';
 import { desc } from 'drizzle-orm'; 
 
 const db = drizzle(process.env.DATABASE_URL!);
