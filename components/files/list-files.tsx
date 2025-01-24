@@ -42,7 +42,7 @@ export function ListFiles() {
 
   const fetchProducts = async (page: number) => {
 
-    fetch(`/api/datafileapi?page=${page}`)
+    fetch(`/api/files?page=${page}`)
     .then((res) => res.json())
     .then((data) => setFiles(data));
 
