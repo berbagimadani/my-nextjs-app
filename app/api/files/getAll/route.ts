@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server"; 
 import type { NextRequest } from "next/server";
 
-
 import 'dotenv/config';
 import { drizzle } from 'drizzle-orm/node-postgres';
 import { filesTable } from '@/database/schema';
@@ -14,7 +13,7 @@ export const dynamic = "force-dynamic";
 export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url);
-    const pageSize = 50;
+    const pageSize = 12;
     const page = parseInt(searchParams.get('page') || "1");
     const search = searchParams.get('search') || "";
 
@@ -25,7 +24,7 @@ export async function GET(req: NextRequest) {
         .offset((page - 1) * pageSize)
         .where(like(filesTable.filename, "%"+search+"%"));
         
-    return NextResponse.json({ files });
+    return NextResponse.json( files );
   } catch (err) {
     return err;
   } finally { 
