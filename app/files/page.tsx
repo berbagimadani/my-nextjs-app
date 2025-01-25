@@ -36,9 +36,13 @@ import { Suspense } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 
-async function Posts({ searchParams }: { searchParams: { [key: string]: string } }) { 
-  const page = parseInt(searchParams.page || "1", 10);
-  const search = searchParams.search || "";
+async function Posts({
+  page,
+  search,
+}: {
+  page: number;
+  search: string;
+}) { 
   const response = await fetch(`http://localhost:3000/api/files/getAll?page=${page}&search=${search}`, {
       next: { revalidate: 60 }
     });
@@ -70,8 +74,7 @@ async function Posts({ searchParams }: { searchParams: { [key: string]: string }
               <Search className="pointer-events-none absolute left-2 top-1/2 size-4 -translate-y-1/2 select-none opacity-50" />
             </SidebarGroupContent>
           </SidebarGroup>
-        </div>
-        <Suspense fallback={<p className="h-100 text-2xl text-red-600">Loading...</p>}>
+        </div> 
         <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
           {files.map((file: any) => (
             <div
@@ -101,19 +104,36 @@ async function Posts({ searchParams }: { searchParams: { [key: string]: string }
               </div>
             </div>
           ))}
-        </div>
-        </Suspense>
+        </div> 
+         {/* Pagination Links */}
+      <div>
+        <a href={`?page=${Math.max(page - 1, 1)}&search=${encodeURIComponent(search)}`}>
+          Previous
+        </a>
+        <a href={`?page=${page + 1}&search=${encodeURIComponent(search)}`}>
+          Next
+        </a>
+      </div>
       </CardContent>
     </Card>
   );
 }
 
-export default function Page({ searchParams }: { searchParams: { [key: string]: string } }) { 
+export default async function Page({
+  searchParams,
+}: {
+  searchParams: { page?: string; search?: string };
+}) { 
+
+  const resolvedParams = await searchParams;
+  const page = parseInt(resolvedParams.page || "1", 10);
+  const search = resolvedParams.search || "";
+
   return (
     <div>
-      <h1>Posts</h1>
+      <h1>Posts </h1>
       <Suspense fallback={<p>Loading...</p>}>
-        <Posts searchParams={searchParams}/>
+        <Posts page={page} search={search}/>
       </Suspense>
     </div>
   );

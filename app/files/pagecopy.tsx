@@ -68,7 +68,7 @@ const FormSchema = z.object({
 });
 
 
-const Page = () => {
+const PageCopy = () => {
   const ikUploadRefTest = useRef<HTMLInputElement | null>(null);
   const [uploadedImageUrl, setUploadedImageUrl] = useState<string | null>("/");
   const [progress, setProgress] = useState<number>(0);
