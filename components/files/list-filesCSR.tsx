@@ -37,7 +37,7 @@ interface File {
   fileid: string;
 }
 
-export function ListFilesBak() {
+export function ListFilesCSR() {
   const searchParams = useSearchParams();
 
   const currentPage = parseInt(searchParams?.get("page") || "1", 10);

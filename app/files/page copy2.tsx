@@ -1,3 +1,28 @@
+// "use client";
+
+// import { ListFiles } from "@/components/files/list-files"; 
+// import Layout from "../components/layout";
+// import CreateFile from "@/components/files/create-files";
+// import { DataProvider } from "@/context/DataContext"; 
+
+// export default function Page() {
+//   return (
+//     <DataProvider>
+//       <Layout>
+//       <div className="flex gap-4">
+//         <div className="w-2/6">
+//           <CreateFile></CreateFile>
+//         </div>
+//         <div className="w-full">
+//           <ListFiles></ListFiles>
+//         </div>
+//        </div>
+//       </Layout>
+//     </DataProvider>
+//   );
+// }
+
+
 import Image from "next/image"; 
 // import { fetchFile } from "@/lib/actions/fetchfile";  
 import {
@@ -6,11 +31,12 @@ import {
   SidebarInput, 
 } from "@/components/ui/sidebar";
 import { Search } from "lucide-react";  
-import { Label } from "@/components/ui/label"; 
+import { Label } from "@/components/ui/label";
+import { Suspense } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 
-export async function ListFiles({
+async function Posts({
   page,
   search,
 }: {
@@ -91,4 +117,24 @@ export async function ListFiles({
       </CardContent>
     </Card>
   );
-} 
+}
+
+export default async function Page({
+  searchParams,
+}: {
+  searchParams: { page?: string; search?: string };
+}) { 
+
+  const resolvedParams = await searchParams;
+  const page = parseInt(resolvedParams.page || "1", 10);
+  const search = resolvedParams.search || "";
+
+  return (
+    <div>
+      <h1>Posts </h1>
+      <Suspense fallback={<p>Loading...</p>}>
+        <Posts page={page} search={search}/>
+      </Suspense>
+    </div>
+  );
+}
