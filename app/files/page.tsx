@@ -2,6 +2,7 @@ import Layout from "../components/layout";
 import CreateFile from "@/components/files/create-files";
 import { ListFiles } from "@/components/files/list-files";
 import { DataProvider } from "@/context/DataContext"; 
+import { Suspense } from "react";
 
 export default async function Page({
   searchParams,
@@ -20,7 +21,9 @@ export default async function Page({
           <CreateFile></CreateFile>
         </div>
         <div className="w-full">
-          <ListFiles page={page} search={search}></ListFiles>
+          <Suspense fallback={<p>Loading...</p>}>
+            <ListFiles page={page} search={search}></ListFiles>
+          </Suspense>
         </div>
        </div>
       </Layout>

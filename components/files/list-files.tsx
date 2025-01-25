@@ -18,8 +18,8 @@ export async function ListFiles({
   search: string;
 }) { 
   const response = await fetch(`http://localhost:3000/api/files/getAll?page=${page}&search=${search}`, {
-      next: { revalidate: 60 }
-    });
+    next: { revalidate: 60 }
+  });
   
   const files = await response.json();
 
