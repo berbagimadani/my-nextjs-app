@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/navigation"; 
 import React, { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import {
@@ -123,7 +123,7 @@ const CreateFile = () => {
       });
       
       // mungkin bisa tambahkan disini untuk trigger update server compoenent
-      //router.push(`/files?page=1`);
+      router.push(`files?cache=false`);
       router.refresh();
     } else {
       toast({

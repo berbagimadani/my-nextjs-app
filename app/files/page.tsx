@@ -8,12 +8,14 @@ import { Suspense } from "react";
 export default async function Page({
   searchParams,
 }: {
-  searchParams: { page?: string; search?: string };
+  searchParams: { page?: string; search?: string; cache?: string};
 }) { 
 
   const resolvedParams = await searchParams;
   const page = parseInt(resolvedParams.page || "1", 10);
   const search = resolvedParams.search || "";
+  const cache = resolvedParams.cache || "";
+  
   return (
     <DataProvider>
       <Layout>
@@ -23,7 +25,7 @@ export default async function Page({
         </div>
         <div className="w-full">
           <Suspense fallback={<p>Loading...</p>}>
-            <ListFiles page={page} search={search}></ListFiles>
+            <ListFiles page={page} search={search} cache={cache}></ListFiles>
           </Suspense>
           {/* <ListFilesCSR></ListFilesCSR> */}
         </div>

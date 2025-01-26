@@ -13,17 +13,22 @@ import Link from "next/link";
 export async function ListFiles({
   page,
   search,
+  cache,
 }: {
   page: number;
   search: string;
+  cache: string;
 }) {
   const response = await fetch(
     `http://localhost:3000/api/files/getAll?page=${page}&search=${search}`,
-    {
       //next: { revalidate: 60 },
-      cache: "no-store"
-    }
+      //cache: "no-store",
+      cache === "false"
+      ? { cache: "no-store" } // Memaksa fetch data tanpa cache
+      : { next: { revalidate: 60 } } // ISR dengan cache 60 detik
   );
+
+  console.log("Ade", cache);
 
   const files = await response.json();
 
