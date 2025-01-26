@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import React, { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import {
@@ -21,6 +22,7 @@ import { ImageKitProvider, IKUpload } from "imagekitio-next";
 import { Camera } from "lucide-react";
 import { useDataContext } from "@/context/DataContext";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+
 
 /**
  * ImageKIt
@@ -69,6 +71,7 @@ const CreateFile = () => {
   const [progress, setProgress] = useState<number>(0);
   const [uploading, setUploading] = useState<boolean>(false);
   const { addItem } = useDataContext();
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -104,6 +107,7 @@ const CreateFile = () => {
   };
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
+   
     const result = await createFile(data);
     if (result.success) {
       toast({
@@ -117,8 +121,10 @@ const CreateFile = () => {
         url: data.url,
         fileid: data.fileid,
       });
-
-      //router.push(`/admin/books/${result.data.id}`);
+      
+      // mungkin bisa tambahkan disini untuk trigger update server compoenent
+      //router.push(`/files?page=1`);
+      router.refresh();
     } else {
       toast({
         title: "Error",
