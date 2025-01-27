@@ -4,11 +4,14 @@ import {
   SidebarGroup,
   SidebarGroupContent,
   SidebarInput,
+  SidebarMenuButton,
 } from "@/components/ui/sidebar";
-import { Search } from "lucide-react";
+import { ChevronsUpDown, Search } from "lucide-react";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from "../ui/dropdown-menu";
+import Dropdown from "../dropdown";
 
 export async function ListFiles({
   page,
@@ -28,13 +31,12 @@ export async function ListFiles({
       : { next: { revalidate: 90 } } // ISR dengan cache 60 detik
   );
 
-  console.log("Ade", cache);
-
   const files = await response.json();
 
   const truncateString = (str: string, maxLength: number) => {
     return str.length > maxLength ? `${str.substring(0, maxLength)}...` : str;
   };
+ 
 
   return (
     <Card className="pb-4">
@@ -78,10 +80,29 @@ export async function ListFiles({
               </div>
               {/* Teks nama file */}
               <p className="text-center text-sm font-medium break-words max-w-full">
-                {truncateString(file.filename, 20)}
+                {truncateString(file.filename, 20)} 
               </p>
 
-              <div className="absolute right-5 -top-2"></div>
+              <div className="absolute right-5 -top-2">
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <SidebarMenuButton
+                      size="lg"
+                      className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+                    >
+                      <ChevronsUpDown className="ml-auto" />
+                    </SidebarMenuButton>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent
+                    className="w-[--radix-dropdown-menu-trigger-width]"
+                    align="end"
+                  >
+                   
+                    <Dropdown options={file.fileid} />
+
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
             </div>
           ))}
         </div>

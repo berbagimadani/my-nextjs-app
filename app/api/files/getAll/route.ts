@@ -21,7 +21,7 @@ export async function GET(req: NextRequest) {
     const files = await db.select()
         .from(filesTable)
         .orderBy(desc(filesTable.id))
-        .limit(pageSize) // the number of rows to return
+        .limit(pageSize)
         .offset((page - 1) * pageSize)
         .where(like(filesTable.filename, "%"+search+"%"));
         
