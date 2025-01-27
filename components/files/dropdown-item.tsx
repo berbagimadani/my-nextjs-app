@@ -1,6 +1,6 @@
 "use client";
  
-import { DropdownMenuItem } from "./ui/dropdown-menu";
+import { DropdownMenuItem } from "../ui/dropdown-menu";
 import { View } from "lucide-react";
 import { redirect } from "next/navigation";
 
@@ -8,7 +8,7 @@ interface DropdownProps {
   options: string;
 }
 
-const Dropdown: React.FC<DropdownProps> = ({ options }) => { 
+const DropdownItem: React.FC<DropdownProps> = ({ options }) => { 
   const handleSelect = (option: string) => { 
     redirect(`/files/${option}`);
   };
@@ -27,4 +27,4 @@ const Dropdown: React.FC<DropdownProps> = ({ options }) => {
   );
 };
 
-export default Dropdown;
+export default DropdownItem;

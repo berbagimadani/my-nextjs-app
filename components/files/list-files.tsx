@@ -2,8 +2,7 @@ import Image from "next/image";
 // import { fetchFile } from "@/lib/actions/fetchfile";
 import {
   SidebarGroup,
-  SidebarGroupContent,
-  SidebarInput,
+  SidebarGroupContent, 
   SidebarMenuButton,
 } from "@/components/ui/sidebar";
 import { ChevronsUpDown, Search } from "lucide-react";
@@ -11,7 +10,8 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from "../ui/dropdown-menu";
-import Dropdown from "../dropdown";
+import Dropdown from "./dropdown-item";
+import SearchInput from "./search-input";
 
 export async function ListFiles({
   page,
@@ -50,11 +50,7 @@ export async function ListFiles({
               <Label htmlFor="search" className="sr-only">
                 Search
               </Label>
-              <SidebarInput
-                id="search"
-                placeholder="Search the docs..."
-                className="pl-8 bg-content"
-              />
+              <SearchInput></SearchInput>
               <Search className="pointer-events-none absolute left-2 top-1/2 size-4 -translate-y-1/2 select-none opacity-50" />
             </SidebarGroupContent>
           </SidebarGroup>
