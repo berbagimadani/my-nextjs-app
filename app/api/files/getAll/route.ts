@@ -30,7 +30,7 @@ export async function GET(req: NextRequest) {
         return NextResponse.json(files, {
           headers: cache
             ? { "Cache-Control": "no-store" } // Tidak menggunakan cache
-            : { "Cache-Control": "s-maxage=60, stale-while-revalidate=60" }, // ISR
+            : { "Cache-Control": "s-maxage=90, stale-while-revalidate=90" }, // ISR
         });
 
     } catch (err) {

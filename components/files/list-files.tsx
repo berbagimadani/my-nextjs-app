@@ -25,7 +25,7 @@ export async function ListFiles({
       //cache: "no-store",
       cache === "false"
       ? { cache: "no-store" } // Memaksa fetch data tanpa cache
-      : { next: { revalidate: 60 } } // ISR dengan cache 60 detik
+      : { next: { revalidate: 90 } } // ISR dengan cache 60 detik
   );
 
   console.log("Ade", cache);
@@ -91,7 +91,7 @@ export async function ListFiles({
           <Link
             href={`?page=${page > 1 ? page - 1 : 1}&search=${encodeURIComponent(
               search
-            )}`}
+            )}`} 
           >
             Previous
           </Link>

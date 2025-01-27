@@ -5,6 +5,8 @@ import { ListFiles } from "@/components/files/list-files";
 import { DataProvider } from "@/context/DataContext"; 
 import { Suspense } from "react";
 
+export const revalidate = 90; 
+
 export default async function Page({
   searchParams,
 }: {

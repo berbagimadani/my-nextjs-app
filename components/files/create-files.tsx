@@ -121,10 +121,13 @@ const CreateFile = () => {
         url: data.url,
         fileid: data.fileid,
       });
+       
+      await fetch(`/api/revalidate?path=/files`, {
+        method: "GET",
+      });
       
-      // mungkin bisa tambahkan disini untuk trigger update server compoenent
-      router.push(`files?cache=false`);
-      router.refresh();
+      router.push(`files?cache=false`); 
+
     } else {
       toast({
         title: "Error",
